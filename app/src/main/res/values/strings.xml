@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TaipeiZooDemoApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="zoo">臺北市立動物園</string>
+    <string name="open_html">在網頁開啟</string>
+    <string name="plant_info">植物資料</string>
+    <string name="alsoknown">別名</string>
+    <string name="brief">簡介</string>
+    <string name="feature">辨認方式</string>
+    <string name="function_application">功能性</string>
+    <string name="last_update">最後更新:</string>
+</resources>
