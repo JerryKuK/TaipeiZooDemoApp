@@ -28,6 +28,6 @@ class ZooItemAdapter(private val viewModel: EventViewModel) :
     class VH(val viewBinding: AdapterItemZooBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
     fun getItemList(): List<AreaApiModel.Result.AreaDataResult>?{
-        return viewModel.areaDataList.value?.content?.result?.results
+        return viewModel.areaData.value?.content?.result?.results
     }
 }

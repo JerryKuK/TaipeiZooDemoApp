@@ -42,7 +42,7 @@ class AreaItemAdapter(private val viewModel: EventViewModel, private val areaDat
     }
 
     override fun getItemCount(): Int {
-        val size = getItemList()?.size ?: 0
+        val size = getItemList().size
         return when(size){
             0 -> 1
             else -> 2 + size
@@ -68,7 +68,7 @@ class AreaItemAdapter(private val viewModel: EventViewModel, private val areaDat
             }
             TYPE_ITEM ->{
                 val vh_item = holder as? VH_Item
-                val data = getItemList()?.get(position - 2)
+                val data = getItemList().get(position - 2)
                 vh_item?.viewBinding?.setVariable(BR.dataResult, data)
                 vh_item?.viewBinding?.setVariable(BR.eventViewModel, viewModel)
                 vh_item?.viewBinding?.executePendingBindings()
@@ -92,7 +92,17 @@ class AreaItemAdapter(private val viewModel: EventViewModel, private val areaDat
     class VH_Title(val viewBinding: AdapterItemAreaTitleBinding) : RecyclerView.ViewHolder(viewBinding.root)
     class VH_Item(val viewBinding: AdapterItemAreaBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
-    fun getItemList(): List<PlantApiModel.Result.PlantDataResult>?{
-        return viewModel.plantDataList.value?.content?.result?.results
+    fun getItemList(): List<PlantApiModel.Result.PlantDataResult>{
+        val checkNoNameSameMap = mutableMapOf<String, PlantApiModel.Result.PlantDataResult>()
+        val realList = viewModel.plantData.value?.content?.result?.results
+        realList?.let {
+            for (item in it){
+                if(! checkNoNameSameMap.containsKey(item.FNameCh)){
+                    checkNoNameSameMap.put(item.FNameCh, item)
+                }
+            }
+        }
+
+        return checkNoNameSameMap.values.toList()
     }
 }

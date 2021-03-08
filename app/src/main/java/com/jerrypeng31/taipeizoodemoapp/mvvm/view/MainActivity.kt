@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.frameLayout_container, ZooFragment(), ZooFragment.TAG)
             .commit()
     }
-
+    
     fun toolbar(drawableResId: Int, title: String){
         val toolbar = mainBinding.toolbar
         toolbar.title = title

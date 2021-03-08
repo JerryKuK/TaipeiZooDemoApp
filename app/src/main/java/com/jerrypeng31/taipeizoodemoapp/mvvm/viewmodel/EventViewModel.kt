@@ -12,8 +12,8 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class EventViewModel(private val repository: Repository) : ViewModel(){
-    val areaDataList : MutableLiveData<Event<AreaApiModel?>> = MutableLiveData()
-    val plantDataList : MutableLiveData<Event<PlantApiModel?>> = MutableLiveData()
+    val areaData : MutableLiveData<Event<AreaApiModel?>> = MutableLiveData()
+    val plantData : MutableLiveData<Event<PlantApiModel?>> = MutableLiveData()
     val error : MutableLiveData<Event<Throwable?>> = MutableLiveData()
 
     val areaDataClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
@@ -25,7 +25,7 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { areaDataList.value = Event(it) },
+                { areaData.value = Event(it) },
                 { error.value = Event(it) }
             )
     }
@@ -35,7 +35,7 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { plantDataList.value = Event(it) },
+                { plantData.value = Event(it) },
                 { error.value = Event(it) }
             )
     }
@@ -53,11 +53,11 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
     }
 
     fun clearPlantDataList(){
-        plantDataList.value = null
+        plantData.value = null
     }
 
     fun clearAreaDataList(){
-        areaDataList.value = null
+        areaData.value = null
     }
 }
 

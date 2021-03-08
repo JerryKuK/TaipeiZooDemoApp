@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:layout_margin="5dp"
+            android:padding="10dp"
             app:imgUrl="@{dataResult.EPicURL}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,13 +41,13 @@
             android:maxLines="1"
             android:textStyle="bold"
             android:text="@{dataResult.EName}"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#222222"
             app:layout_constraintBottom_toTopOf="@+id/textView_msg1"
             app:layout_constraintLeft_toRightOf="@+id/imageView_pic"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/imageView_arrow"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+            app:layout_constraintVertical_chainStyle="spread" />
 
         <TextView
             android:id="@+id/textView_msg1"
@@ -56,7 +56,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="@{dataResult.EInfo}"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#888888"
             app:layout_constraintBottom_toTopOf="@+id/textView_msg2"
             app:layout_constraintLeft_toRightOf="@+id/imageView_pic"
@@ -71,7 +71,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{dataResult.EMemo}"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#888888"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/imageView_pic"

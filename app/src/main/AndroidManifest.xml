@@ -4,14 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <!-- Glide 需要設置 android:usesCleartextTraffic="true"， 因為android 9.0默認不支持http。  -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TaipeiZooDemoApp">
-        <activity android:name=".mvvm.view.MainActivity">
+        android:theme="@style/Theme.TaipeiZooDemoApp"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".mvvm.view.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

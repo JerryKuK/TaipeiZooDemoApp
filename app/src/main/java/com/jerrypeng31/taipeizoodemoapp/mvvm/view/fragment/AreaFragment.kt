@@ -93,7 +93,7 @@ class AreaFragment : Fragment() {
             eventViewModel.getPlantaData(it.eName)
         }
 
-        eventViewModel.plantDataList.observe(viewLifecycleOwner, EventObserver {
+        eventViewModel.plantData.observe(viewLifecycleOwner, EventObserver {
             adapter.notifyDataSetChanged()
         })
 

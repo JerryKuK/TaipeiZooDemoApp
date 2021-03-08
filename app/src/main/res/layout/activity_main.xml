@@ -7,17 +7,32 @@
     tools:context=".mvvm.view.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/menu"
-            app:titleMarginStart="40dp"
-            app:title="@string/zoo" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#E4DFDF"
+                app:navigationIcon="@drawable/menu"
+                app:titleMarginStart="40dp"
+                app:title="@string/zoo"
+                app:titleTextAppearance="?android:attr/textAppearanceMedium"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@drawable/shadow"/>
+
+        </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

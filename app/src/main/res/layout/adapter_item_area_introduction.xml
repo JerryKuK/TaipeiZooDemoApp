@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="dataResult"
             type="com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel.Result.AreaDataResult" />
@@ -16,8 +17,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:background="#FFFFFF"
-        android:layout_marginBottom="20dp"
         tools:ignore="MissingDefaultResource">
 
         <ImageView
@@ -31,10 +32,10 @@
             android:id="@+id/textView_introduction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#888888"
             app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
 
@@ -42,12 +43,12 @@
             android:id="@+id/textView_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:layout_marginLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#888888"
-            android:maxLines="2"
             android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#888888"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/textView_html"
             app:layout_constraintTop_toBottomOf="@+id/textView_introduction" />
@@ -56,11 +57,11 @@
             android:id="@+id/textView_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#888888"
-            android:maxLines="1"
+            android:layout_marginLeft="15dp"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#888888"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_time" />
 
@@ -68,14 +69,19 @@
             android:id="@+id/textView_html"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#03A9F4"
+            android:layout_marginRight="15dp"
             android:maxLines="1"
+            android:onClick="@{() -> eventViewModel.itemUrlClick(dataResult)}"
             android:text="@string/open_html"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#03A9F4"
             app:layout_constraintBottom_toBottomOf="@+id/textView_area"
-            android:onClick="@{() -> eventViewModel.itemUrlClick(dataResult)}"/>
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_html" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -78,7 +78,7 @@ class ZooFragment : Fragment() {
         recyclerView?.adapter = adapter
 
         eventViewModel.getAreaData()
-        eventViewModel.areaDataList.observe(viewLifecycleOwner, EventObserver {
+        eventViewModel.areaData.observe(viewLifecycleOwner, EventObserver {
             adapter.notifyDataSetChanged()
         })
 
