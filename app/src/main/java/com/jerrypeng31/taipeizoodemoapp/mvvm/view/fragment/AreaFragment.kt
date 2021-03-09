@@ -79,7 +79,7 @@ class AreaFragment : Fragment() {
             it as? AreaApiModel.Result.AreaDataResult
         }
 
-        val recyclerView = dataBinding?.recyclerViewPlant
+        val recyclerView = dataBinding?.recyclerViewArea
         val adapter = AreaItemAdapter(eventViewModel, areaDataResult)
 
         recyclerView?.layoutManager = LinearLayoutManager(context)

@@ -40,6 +40,25 @@ android {
         // for view binding:
         viewBinding true
     }
+
+    sourceSets {
+        String sharedTestDir = 'src/Test/assets'
+        String sharedandroidTestDir = 'src/androidTest/assets'
+        test {
+            resources.srcDirs += sharedTestDir
+        }
+        androidTest {
+            resources.srcDirs += sharedandroidTestDir
+        }
+    }
+
+    //Robolectric需要
+    testOptions.unitTests.includeAndroidResources = true
+
+    //This is to make sure your unit tests only test your code and do not depend on any particular behaviour of the Android platform (that you have not explicitly mocked e.g. using Mockito)
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -51,8 +70,23 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
+    testImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    // 3.3.0有問題
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    //Espresso RecyclerView Used
+    testImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+
+    //ActivityTestRule used
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    //UI Test知道非同步呼叫時間
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.1.0'
+
+    //Mockwebserver
+    //跟com.squareup.okhttp3:logging-interceptor:3.9.1 版本要一致
+    //androidTestImplementation'com.squareup.okhttp3:mockwebserver:3.9.1'
 
     //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
@@ -73,4 +107,15 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    //Mockk
+    testImplementation "io.mockk:mockk:1.10.6"
+    //InstantTaskExecutorRule 需要
+    //Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:1.1.0"
+
+    //Robolectric
+    testImplementation "org.robolectric:robolectric:4.5.1"
+    //Test Fragment
+    //debugImplementation 'androidx.fragment:fragment-testing:1.2.4'
 }

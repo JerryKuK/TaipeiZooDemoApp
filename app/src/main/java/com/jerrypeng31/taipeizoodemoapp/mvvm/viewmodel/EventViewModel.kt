@@ -1,10 +1,10 @@
 package com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.jerrypeng31.mvvmtest.Repository
+import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,21 +21,35 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
     val plantDataClick : MutableLiveData<Event<PlantApiModel.Result.PlantDataResult?>> = MutableLiveData()
 
     fun getAreaData(): Disposable{
+        //UI Test Used
+        Idling.idlingResource.increment()
+
         return repository.getAreaData()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { areaData.value = Event(it) },
+                {
+                    //UI Test Used
+                    Idling.idlingResource.decrement()
+
+                    areaData.value = Event(it) },
                 { error.value = Event(it) }
             )
     }
 
     fun getPlantaData(filter: String): Disposable{
+        //UI Test Used
+        Idling.idlingResource.increment()
+
         return repository.getPlantData(filter)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { plantData.value = Event(it) },
+                {
+                    //UI Test Used
+                    Idling.idlingResource.decrement()
+
+                    plantData.value = Event(it) },
                 { error.value = Event(it) }
             )
     }

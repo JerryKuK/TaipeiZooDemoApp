@@ -55,7 +55,7 @@ class PlantFragment : Fragment() {
         if(param is PlantApiModel.Result.PlantDataResult){
             val dataResult = param as PlantApiModel.Result.PlantDataResult
 
-            dataBinding?.imageViewIcon?.let {
+            dataBinding?.imageViewFullIcon?.let {
                 Glide.with(it.context)
                     .load(dataResult.fPic01URL)
                     .placeholder(R.drawable.default_icon)

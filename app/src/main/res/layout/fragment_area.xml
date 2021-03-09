@@ -7,7 +7,7 @@
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_plant"
+        android:id="@+id/recyclerView_area"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#AAAAAA">

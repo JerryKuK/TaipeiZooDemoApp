@@ -67,7 +67,7 @@ class ZooFragment : Fragment() {
     fun initEventViewModel(){
         initToolBar()
 
-        val recyclerView = dataBinding?.recyclerViewArea
+        val recyclerView = dataBinding?.recyclerViewZoo
         val adapter = ZooItemAdapter(eventViewModel)
 
         recyclerView?.layoutManager = LinearLayoutManager(context)
