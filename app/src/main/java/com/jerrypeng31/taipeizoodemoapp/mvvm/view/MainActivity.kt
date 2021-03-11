@@ -1,10 +1,14 @@
 package com.jerrypeng31.taipeizoodemoapp.mvvm.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jerrypeng31.taipeizoodemoapp.R
@@ -24,20 +28,29 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
     
-    fun toolbar(drawableResId: Int, title: String){
+    fun toolbar(drawableResId: Int, title: String, isMenuShow: Boolean, refreshClick: (MenuItem)->Boolean){
         val toolbar = mainBinding.toolbar
         toolbar.title = title
         toolbar.navigationIcon = ContextCompat.getDrawable(this, drawableResId)
+        toolbar.menu.getItem(0).isVisible = isMenuShow
         toolbar.setNavigationOnClickListener{
-            if(! checkAreaFragment()){
+            val checkZooFragment = checkFragment{
+                it is ZooFragment
+            }
+
+            if(! checkZooFragment){
                 onBackPressed()
             }
         }
+
+        toolbar.setOnMenuItemClickListener {
+            refreshClick(it)
+        }
     }
 
-    fun checkAreaFragment(): Boolean{
+    private fun checkFragment(checkFragment: (Fragment)-> Boolean): Boolean{
         for(item in supportFragmentManager.fragments){
-            if(item.isVisible && item is ZooFragment){
+            if(item.isVisible && checkFragment(item)){
                 return true
             }
         }

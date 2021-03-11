@@ -20,12 +20,16 @@ class PlantFragment : Fragment() {
     var param: Any? = null
     var dataBinding: FragmentPlantBinding? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        param = arguments?.getSerializable(Keys.FRAGMENT_KEY_PARAM)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        param = arguments?.getSerializable(Keys.FRAGMENT_KEY_PARAM)
-
         dataBinding = FragmentPlantBinding.inflate(inflater, container, false)
         return dataBinding?.root
     }
@@ -45,7 +49,9 @@ class PlantFragment : Fragment() {
 
     fun initToolBar(){
         if(activity is MainActivity && param is PlantApiModel.Result.PlantDataResult){
-            (activity as MainActivity).toolbar(R.drawable.back, (param as PlantApiModel.Result.PlantDataResult).FNameCh)
+            (activity as MainActivity).toolbar(R.drawable.back, (param as PlantApiModel.Result.PlantDataResult).FNameCh, false){
+                false
+            }
         }
     }
 

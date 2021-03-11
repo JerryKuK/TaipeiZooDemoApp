@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -60,7 +61,10 @@ class ZooFragment : Fragment() {
 
     fun initToolBar(){
         if(activity is MainActivity){
-            (activity as MainActivity).toolbar(R.drawable.menu, getString(R.string.zoo))
+            (activity as MainActivity).toolbar(R.drawable.menu, getString(R.string.zoo), true){
+                eventViewModel.getAreaData()
+                true
+            }
         }
     }
 
@@ -85,6 +89,10 @@ class ZooFragment : Fragment() {
         eventViewModel.areaDataClick.observe(viewLifecycleOwner, EventObserver{
             itemClick(it)
         })
+
+        eventViewModel.areaError.observe(viewLifecycleOwner, EventObserver{
+            connectError(it)
+        })
     }
 
     fun itemClick(areaDataResult: AreaApiModel.Result.AreaDataResult?){
@@ -101,5 +109,9 @@ class ZooFragment : Fragment() {
 
         transaction.add(R.id.frameLayout_container, areaFragment, AreaFragment.TAG)
             .addToBackStack(AreaFragment.TAG).commit()
+    }
+
+    fun connectError(throwable: Throwable?){
+        Toast.makeText(context, getString(R.string.connect_error_no_area_data), Toast.LENGTH_LONG).show()
     }
 }

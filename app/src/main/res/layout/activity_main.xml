@@ -23,6 +23,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="#E4DFDF"
                 app:navigationIcon="@drawable/menu"
+                app:menu="@menu/toolbar_menu"
                 app:titleMarginStart="40dp"
                 app:title="@string/zoo"
                 app:titleTextAppearance="?android:attr/textAppearanceMedium"/>

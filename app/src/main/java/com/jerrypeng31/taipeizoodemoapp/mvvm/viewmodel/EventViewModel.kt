@@ -7,14 +7,17 @@ import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.Callable
 
 class EventViewModel(private val repository: Repository) : ViewModel(){
     val areaData : MutableLiveData<Event<AreaApiModel?>> = MutableLiveData()
     val plantData : MutableLiveData<Event<PlantApiModel?>> = MutableLiveData()
-    val error : MutableLiveData<Event<Throwable?>> = MutableLiveData()
+    val areaError : MutableLiveData<Event<Throwable?>> = MutableLiveData()
+    val plantError : MutableLiveData<Event<Throwable?>> = MutableLiveData()
 
     val areaDataClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
     val itemUrlClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
@@ -33,7 +36,7 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
                     Idling.idlingResource.decrement()
 
                     areaData.value = Event(it) },
-                { error.value = Event(it) }
+                { areaError.value = Event(it) }
             )
     }
 
@@ -50,7 +53,7 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
                     Idling.idlingResource.decrement()
 
                     plantData.value = Event(it) },
-                { error.value = Event(it) }
+                { plantError.value = Event(it) }
             )
     }
 

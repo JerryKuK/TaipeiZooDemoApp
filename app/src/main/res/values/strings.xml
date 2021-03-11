@@ -11,4 +11,6 @@
     <string name="feature">辨認方式</string>
     <string name="function_application">功能性</string>
     <string name="last_update">最後更新:</string>
+    <string name="connect_error_no_area_data">連線異常，沒有館區資料</string>
+    <string name="connect_error_no_plant_data">連線異常，沒有植物資料</string>
 </resources>

@@ -1,8 +1,6 @@
 package com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.idling.CountingIdlingResource
 import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
@@ -35,7 +33,7 @@ class EventViewModelTest {
     }
 
     @Test
-    fun testGetAreaData() {
+    fun testGetAreaData_success() {
         val areaApiModel = AreaApiModel(AreaApiModel.Result(1000, 0, 2, mutableListOf(), "Test"))
 
         every { stubRepository.getAreaData() }.answers{
@@ -52,7 +50,21 @@ class EventViewModelTest {
     }
 
     @Test
-    fun testGetPlantData() {
+    fun testGetAreaData_fail() {
+        every { stubRepository.getAreaData() }.answers{
+            Observable.fromCallable {
+                throw Exception("NoAreaData")
+            }
+        }
+
+        val viewModel = EventViewModel(stubRepository)
+        viewModel.getAreaData()
+
+        Assert.assertEquals("NoAreaData", viewModel.areaError.value?.content?.message)
+    }
+
+    @Test
+    fun testGetPlantData_success() {
         val plantApiModel = PlantApiModel(PlantApiModel.Result(2000, 20, 23, mutableListOf(), "Test"))
 
         every { stubRepository.getPlantData(any()) }.answers{
@@ -66,5 +78,19 @@ class EventViewModelTest {
         Assert.assertEquals(plantApiModel.result.limit, viewModel.plantData.value?.content?.result?.limit)
         Assert.assertEquals(plantApiModel.result.offset, viewModel.plantData.value?.content?.result?.offset)
         Assert.assertEquals(plantApiModel.result.sort, viewModel.plantData.value?.content?.result?.sort)
+    }
+
+    @Test
+    fun testGetPlantData_fail() {
+        every { stubRepository.getPlantData(any()) }.answers{
+            Observable.fromCallable {
+                throw Exception("NoPlantData")
+            }
+        }
+
+        val viewModel = EventViewModel(stubRepository)
+        viewModel.getPlantaData("")
+
+        Assert.assertEquals("NoPlantData", viewModel.plantError.value?.content?.message)
     }
 }

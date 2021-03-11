@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -37,12 +38,16 @@ class AreaFragment : Fragment() {
         EventViewModelFactory(Repository(RetrofitUtil.getApiService()))
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        param = arguments?.getSerializable(Keys.FRAGMENT_KEY_PARAM)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        param = arguments?.getSerializable(Keys.FRAGMENT_KEY_PARAM)
-
         dataBinding = DataBindingUtil.inflate<FragmentAreaBinding>(inflater, R.layout.fragment_area, container, false)
         return dataBinding?.root
     }
@@ -68,16 +73,22 @@ class AreaFragment : Fragment() {
 
     fun initToolBar(){
         if(activity is MainActivity && param is AreaApiModel.Result.AreaDataResult){
-            (activity as MainActivity).toolbar(R.drawable.back, (param as AreaApiModel.Result.AreaDataResult).eName)
+            val areaDataResult = param as? AreaApiModel.Result.AreaDataResult
+            val name = areaDataResult?.eName ?: ""
+
+            (activity as MainActivity).toolbar(R.drawable.back, name, true){
+                areaDataResult?.let {
+                    eventViewModel.getPlantaData(name)
+                }
+                true
+            }
         }
     }
 
     fun initEventViewModel(){
         initToolBar()
 
-        val areaDataResult = param?.let {
-            it as? AreaApiModel.Result.AreaDataResult
-        }
+        val areaDataResult = param as? AreaApiModel.Result.AreaDataResult
 
         val recyclerView = dataBinding?.recyclerViewArea
         val adapter = AreaItemAdapter(eventViewModel, areaDataResult)
@@ -104,6 +115,10 @@ class AreaFragment : Fragment() {
         eventViewModel.plantDataClick.observe(viewLifecycleOwner, EventObserver {
             itemClick(it)
         })
+
+        eventViewModel.plantError.observe(viewLifecycleOwner, EventObserver{
+            connectError(it)
+        })
     }
 
     fun itemUrlClick(areaDataResult: AreaApiModel.Result.AreaDataResult?){
@@ -125,5 +140,9 @@ class AreaFragment : Fragment() {
 
         transaction.add(R.id.frameLayout_container, plantFragment, PlantFragment.TAG)
             .addToBackStack(AreaFragment.TAG).commit()
+    }
+
+    fun connectError(throwable: Throwable?){
+        Toast.makeText(context, getString(R.string.connect_error_no_plant_data), Toast.LENGTH_LONG).show()
     }
 }
