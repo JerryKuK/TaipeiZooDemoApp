@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -104,7 +105,7 @@ class AreaFragment : Fragment() {
             eventViewModel.getPlantaData(it.eName)
         }
 
-        eventViewModel.plantData.observe(viewLifecycleOwner, EventObserver {
+        eventViewModel.plantData.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()
         })
 
@@ -116,7 +117,7 @@ class AreaFragment : Fragment() {
             itemClick(it)
         })
 
-        eventViewModel.plantError.observe(viewLifecycleOwner, EventObserver{
+        eventViewModel.plantError.observe(viewLifecycleOwner, Observer{
             connectError(it)
         })
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jerrypeng31.taipeizoodemoapp.mvvm.view.adapter.ZooItemAdapter
@@ -82,7 +83,7 @@ class ZooFragment : Fragment() {
         recyclerView?.adapter = adapter
 
         eventViewModel.getAreaData()
-        eventViewModel.areaData.observe(viewLifecycleOwner, EventObserver {
+        eventViewModel.areaData.observe(viewLifecycleOwner, Observer {
             adapter.notifyDataSetChanged()
         })
 
@@ -90,7 +91,7 @@ class ZooFragment : Fragment() {
             itemClick(it)
         })
 
-        eventViewModel.areaError.observe(viewLifecycleOwner, EventObserver{
+        eventViewModel.areaError.observe(viewLifecycleOwner, Observer{
             connectError(it)
         })
     }

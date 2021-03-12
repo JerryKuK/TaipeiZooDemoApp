@@ -14,10 +14,10 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Callable
 
 class EventViewModel(private val repository: Repository) : ViewModel(){
-    val areaData : MutableLiveData<Event<AreaApiModel?>> = MutableLiveData()
-    val plantData : MutableLiveData<Event<PlantApiModel?>> = MutableLiveData()
-    val areaError : MutableLiveData<Event<Throwable?>> = MutableLiveData()
-    val plantError : MutableLiveData<Event<Throwable?>> = MutableLiveData()
+    val areaData : MutableLiveData<AreaApiModel?> = MutableLiveData()
+    val plantData : MutableLiveData<PlantApiModel?> = MutableLiveData()
+    val areaError : MutableLiveData<Throwable?> = MutableLiveData()
+    val plantError : MutableLiveData<Throwable?> = MutableLiveData()
 
     val areaDataClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
     val itemUrlClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
@@ -35,8 +35,8 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
                     //UI Test Used
                     Idling.idlingResource.decrement()
 
-                    areaData.value = Event(it) },
-                { areaError.value = Event(it) }
+                    areaData.value = it },
+                { areaError.value = it }
             )
     }
 
@@ -52,8 +52,8 @@ class EventViewModel(private val repository: Repository) : ViewModel(){
                     //UI Test Used
                     Idling.idlingResource.decrement()
 
-                    plantData.value = Event(it) },
-                { plantError.value = Event(it) }
+                    plantData.value = it },
+                { plantError.value = it }
             )
     }
 

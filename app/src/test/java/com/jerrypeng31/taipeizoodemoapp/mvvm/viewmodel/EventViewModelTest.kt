@@ -43,10 +43,10 @@ class EventViewModelTest {
         val viewModel = EventViewModel(stubRepository)
         viewModel.getAreaData()
 
-        Assert.assertEquals(areaApiModel.result.count, viewModel.areaData.value?.content?.result?.count)
-        Assert.assertEquals(areaApiModel.result.limit, viewModel.areaData.value?.content?.result?.limit)
-        Assert.assertEquals(areaApiModel.result.offset, viewModel.areaData.value?.content?.result?.offset)
-        Assert.assertEquals(areaApiModel.result.sort, viewModel.areaData.value?.content?.result?.sort)
+        Assert.assertEquals(areaApiModel.result.count, viewModel.areaData.value?.result?.count)
+        Assert.assertEquals(areaApiModel.result.limit, viewModel.areaData.value?.result?.limit)
+        Assert.assertEquals(areaApiModel.result.offset, viewModel.areaData.value?.result?.offset)
+        Assert.assertEquals(areaApiModel.result.sort, viewModel.areaData.value?.result?.sort)
     }
 
     @Test
@@ -60,7 +60,7 @@ class EventViewModelTest {
         val viewModel = EventViewModel(stubRepository)
         viewModel.getAreaData()
 
-        Assert.assertEquals("NoAreaData", viewModel.areaError.value?.content?.message)
+        Assert.assertEquals("NoAreaData", viewModel.areaError.value?.message)
     }
 
     @Test
@@ -74,10 +74,10 @@ class EventViewModelTest {
         val viewModel = EventViewModel(stubRepository)
         viewModel.getPlantaData("")
 
-        Assert.assertEquals(plantApiModel.result.count, viewModel.plantData.value?.content?.result?.count)
-        Assert.assertEquals(plantApiModel.result.limit, viewModel.plantData.value?.content?.result?.limit)
-        Assert.assertEquals(plantApiModel.result.offset, viewModel.plantData.value?.content?.result?.offset)
-        Assert.assertEquals(plantApiModel.result.sort, viewModel.plantData.value?.content?.result?.sort)
+        Assert.assertEquals(plantApiModel.result.count, viewModel.plantData.value?.result?.count)
+        Assert.assertEquals(plantApiModel.result.limit, viewModel.plantData.value?.result?.limit)
+        Assert.assertEquals(plantApiModel.result.offset, viewModel.plantData.value?.result?.offset)
+        Assert.assertEquals(plantApiModel.result.sort, viewModel.plantData.value?.result?.sort)
     }
 
     @Test
@@ -91,6 +91,6 @@ class EventViewModelTest {
         val viewModel = EventViewModel(stubRepository)
         viewModel.getPlantaData("")
 
-        Assert.assertEquals("NoPlantData", viewModel.plantError.value?.content?.message)
+        Assert.assertEquals("NoPlantData", viewModel.plantError.value?.message)
     }
 }
