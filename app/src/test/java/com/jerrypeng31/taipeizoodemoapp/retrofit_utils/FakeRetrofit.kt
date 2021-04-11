@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
-class MockRetrofit(interceptor: Interceptor) {
+class FakeRetrofit(interceptor: Interceptor) {
     companion object{
         var apiService: ApiService? = null
         lateinit var retrofit: Retrofit

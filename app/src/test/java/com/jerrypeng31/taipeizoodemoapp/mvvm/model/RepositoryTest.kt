@@ -2,7 +2,7 @@ package com.jerrypeng31.taipeizoodemoapp.mvvm.model
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jerrypeng31.mvvmtest.Repository
-import com.jerrypeng31.taipeizoodemoapp.retrofit_utils.MockRetrofit
+import com.jerrypeng31.taipeizoodemoapp.retrofit_utils.FakeRetrofit
 import com.jerrypeng31.taipeizoodemoapp.retrofit_utils.Utils
 import okhttp3.mockwebserver.MockResponse
 import org.hamcrest.Matchers.equalTo
@@ -14,7 +14,7 @@ class RepositoryTest {
 
     @Before
     fun setUp() {
-        MockRetrofit.init()
+        FakeRetrofit.init()
     }
 
     @Test
@@ -22,9 +22,9 @@ class RepositoryTest {
         val mockResponse = MockResponse()
         mockResponse.setResponseCode(200)
         mockResponse.setBody(Utils.loadTestData( "area_data.json"))
-        MockRetrofit.mockWebServer.enqueue(mockResponse)
+        FakeRetrofit.mockWebServer.enqueue(mockResponse)
 
-        val areaDataModel = MockRetrofit.apiService?.areaData(Repository.SCOPE)?.blockingFirst()
+        val areaDataModel = FakeRetrofit.apiService?.areaData(Repository.SCOPE)?.blockingFirst()
 
         Assert.assertEquals("臺灣動物區", areaDataModel?.result?.results?.get(0)?.eName)
         Assert.assertEquals("兒童動物區", areaDataModel?.result?.results?.get(1)?.eName)
@@ -35,9 +35,9 @@ class RepositoryTest {
         val mockResponse = MockResponse()
         mockResponse.setResponseCode(400)
         mockResponse.setBody(Utils.loadTestData( "area_data.json"))
-        MockRetrofit.mockWebServer.enqueue(mockResponse)
+        FakeRetrofit.mockWebServer.enqueue(mockResponse)
 
-        val areaDataModel: AreaApiModel? = MockRetrofit.apiService?.areaData(Repository.SCOPE)
+        val areaDataModel: AreaApiModel? = FakeRetrofit.apiService?.areaData(Repository.SCOPE)
             ?.onErrorReturn { AreaApiModel(AreaApiModel.Result(0,0,0, listOf(),"Test")) }
             ?.blockingFirst()
 
@@ -49,9 +49,9 @@ class RepositoryTest {
         val mockResponse = MockResponse()
         mockResponse.setResponseCode(200)
         mockResponse.setBody(Utils.loadTestData( "plant_data.json"))
-        MockRetrofit.mockWebServer.enqueue(mockResponse)
+        FakeRetrofit.mockWebServer.enqueue(mockResponse)
 
-        val plantDataModel = MockRetrofit.apiService?.plantData(Repository.SCOPE, "")?.blockingFirst()
+        val plantDataModel = FakeRetrofit.apiService?.plantData(Repository.SCOPE, "")?.blockingFirst()
 
         Assert.assertEquals("大花紫薇", plantDataModel?.result?.results?.get(0)?.FNameCh)
         Assert.assertEquals("水黃皮", plantDataModel?.result?.results?.get(1)?.FNameCh)
@@ -62,9 +62,9 @@ class RepositoryTest {
         val mockResponse = MockResponse()
         mockResponse.setResponseCode(400)
         mockResponse.setBody(Utils.loadTestData( "plant_data.json"))
-        MockRetrofit.mockWebServer.enqueue(mockResponse)
+        FakeRetrofit.mockWebServer.enqueue(mockResponse)
 
-        val plantDataModel = MockRetrofit.apiService?.plantData(Repository.SCOPE, "")
+        val plantDataModel = FakeRetrofit.apiService?.plantData(Repository.SCOPE, "")
             ?.onErrorReturn { PlantApiModel(PlantApiModel.Result(0,0,0, listOf(),"Test")) }
             ?.blockingFirst()
 
@@ -73,6 +73,6 @@ class RepositoryTest {
 
     @After
     fun tearDown() {
-        MockRetrofit.serverShutdown()
+        FakeRetrofit.serverShutdown()
     }
 }
