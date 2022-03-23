@@ -3,9 +3,6 @@ package com.jerrypeng31.mvvmtest
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import com.jerrypeng31.taipeizoodemoapp.retrofit.ApiService
-import com.jerrypeng31.taipeizoodemoapp.retrofit.RetrofitUtil
-import io.reactivex.Observable
-import io.reactivex.Observer
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val apiService: ApiService){
@@ -13,11 +10,11 @@ class Repository @Inject constructor(private val apiService: ApiService){
         const val SCOPE = "resourceAquire"
     }
 
-    fun getAreaData(): Observable<AreaApiModel> {
+    suspend fun getAreaData(): AreaApiModel {
         return apiService.areaData(SCOPE)
     }
 
-    fun getPlantData(filter : String): Observable<PlantApiModel> {
+    suspend fun getPlantData(filter : String): PlantApiModel {
         return apiService.plantData(SCOPE, filter)
     }
 }

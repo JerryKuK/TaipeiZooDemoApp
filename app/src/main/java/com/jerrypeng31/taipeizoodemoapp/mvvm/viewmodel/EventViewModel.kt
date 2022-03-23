@@ -3,16 +3,19 @@ package com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Callable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,38 +29,46 @@ class EventViewModel @Inject constructor(private val repository: Repository) : V
     val itemUrlClick : MutableLiveData<Event<AreaApiModel.Result.AreaDataResult?>> = MutableLiveData()
     val plantDataClick : MutableLiveData<Event<PlantApiModel.Result.PlantDataResult?>> = MutableLiveData()
 
-    fun getAreaData(): Disposable{
+    fun getAreaData(): Job{
         //UI Test Used
         Idling.idlingResource.increment()
 
-        return repository.getAreaData()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
+        return viewModelScope.launch {
+            flow {
+                val data = repository.getAreaData()
+                emit(data)
+            }
+                .flowOn(Dispatchers.IO)
+                .catch {
+                    areaError.value = it
+                }
+                .collect {
                     //UI Test Used
                     Idling.idlingResource.decrement()
 
-                    areaData.value = it },
-                { areaError.value = it }
-            )
+                    areaData.value = it
+                }
+        }
     }
 
-    fun getPlantaData(filter: String): Disposable{
+    fun getPlantaData(filter: String): Job{
         //UI Test Used
         Idling.idlingResource.increment()
 
-        return repository.getPlantData(filter)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                {
+        return viewModelScope.launch {
+            flow {
+                val data = repository.getPlantData(filter)
+                emit(data)
+            }
+                .flowOn(Dispatchers.IO)
+                .catch { plantError.value = it }
+                .collect {
                     //UI Test Used
                     Idling.idlingResource.decrement()
 
-                    plantData.value = it },
-                { plantError.value = it }
-            )
+                    plantData.value = it
+                }
+        }
     }
 
     fun itemAreaClick(dataResult: AreaApiModel.Result.AreaDataResult){

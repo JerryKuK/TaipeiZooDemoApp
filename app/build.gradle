@@ -90,9 +90,9 @@ dependencies {
     testImplementation'com.squareup.okhttp3:mockwebserver:3.9.1'
 
     //retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
     // 標準轉換器,去掉 Retrofit 上傳參數時，String會多雙引號
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     //HttpLoggingInterceptor 會用到
@@ -126,4 +126,7 @@ dependencies {
     //Hilt ViewModel
     implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03'
     kapt 'androidx.hilt:hilt-compiler:1.0.0'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
 }

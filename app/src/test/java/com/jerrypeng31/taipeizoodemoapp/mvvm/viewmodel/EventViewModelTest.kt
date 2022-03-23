@@ -7,9 +7,8 @@ import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import com.jerrypeng31.taipeizoodemoapp.retrofit_utils.RxSchedulersOverrideRule
 import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import io.reactivex.Observable
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -36,8 +35,8 @@ class EventViewModelTest {
     fun testGetAreaData_success() {
         val areaApiModel = AreaApiModel(AreaApiModel.Result(1000, 0, 2, mutableListOf(), "Test"))
 
-        every { stubRepository.getAreaData() }.answers{
-            Observable.just(areaApiModel)
+        coEvery { stubRepository.getAreaData() }.answers{
+            areaApiModel
         }
 
         val viewModel = EventViewModel(stubRepository)
@@ -51,10 +50,8 @@ class EventViewModelTest {
 
     @Test
     fun testGetAreaData_fail() {
-        every { stubRepository.getAreaData() }.answers{
-            Observable.fromCallable {
-                throw Exception("NoAreaData")
-            }
+        coEvery { stubRepository.getAreaData() }.answers{
+            throw Exception("NoAreaData")
         }
 
         val viewModel = EventViewModel(stubRepository)
@@ -67,8 +64,8 @@ class EventViewModelTest {
     fun testGetPlantData_success() {
         val plantApiModel = PlantApiModel(PlantApiModel.Result(2000, 20, 23, mutableListOf(), "Test"))
 
-        every { stubRepository.getPlantData(any()) }.answers{
-            Observable.just(plantApiModel)
+        coEvery { stubRepository.getPlantData(any()) }.answers{
+            plantApiModel
         }
 
         val viewModel = EventViewModel(stubRepository)
@@ -82,10 +79,8 @@ class EventViewModelTest {
 
     @Test
     fun testGetPlantData_fail() {
-        every { stubRepository.getPlantData(any()) }.answers{
-            Observable.fromCallable {
-                throw Exception("NoPlantData")
-            }
+        coEvery { stubRepository.getPlantData(any()) }.answers{
+            throw Exception("NoPlantData")
         }
 
         val viewModel = EventViewModel(stubRepository)
