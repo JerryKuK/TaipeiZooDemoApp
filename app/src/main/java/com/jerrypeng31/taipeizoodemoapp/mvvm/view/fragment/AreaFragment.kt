@@ -3,19 +3,17 @@ package com.jerrypeng31.taipeizoodemoapp.mvvm.view.fragment
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.jerrypeng31.mvvmtest.EventViewModelFactory
-import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.R
 import com.jerrypeng31.taipeizoodemoapp.databinding.FragmentAreaBinding
 import com.jerrypeng31.taipeizoodemoapp.keys.Keys
@@ -23,11 +21,11 @@ import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.view.MainActivity
 import com.jerrypeng31.taipeizoodemoapp.mvvm.view.adapter.AreaItemAdapter
-import com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel.Event
 import com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel.EventObserver
 import com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel.EventViewModel
-import com.jerrypeng31.taipeizoodemoapp.retrofit.RetrofitUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AreaFragment : Fragment() {
     companion object{
         const val TAG = "AreaFragment"
@@ -35,9 +33,7 @@ class AreaFragment : Fragment() {
     var param: Any? = null
     var dataBinding: FragmentAreaBinding? = null
 
-    private val eventViewModel: EventViewModel by activityViewModels{
-        EventViewModelFactory(Repository(RetrofitUtil.getApiService()))
-    }
+    private val eventViewModel by viewModels<EventViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

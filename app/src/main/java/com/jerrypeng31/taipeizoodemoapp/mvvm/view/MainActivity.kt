@@ -1,9 +1,7 @@
 package com.jerrypeng31.taipeizoodemoapp.mvvm.view
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,7 +12,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jerrypeng31.taipeizoodemoapp.R
 import com.jerrypeng31.taipeizoodemoapp.databinding.ActivityMainBinding
 import com.jerrypeng31.taipeizoodemoapp.mvvm.view.fragment.ZooFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var mainBinding: ActivityMainBinding
 

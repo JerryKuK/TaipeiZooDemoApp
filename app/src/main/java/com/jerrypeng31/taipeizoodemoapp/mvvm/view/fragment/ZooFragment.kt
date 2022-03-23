@@ -1,28 +1,27 @@
 package com.jerrypeng31.taipeizoodemoapp.mvvm.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jerrypeng31.taipeizoodemoapp.mvvm.view.adapter.ZooItemAdapter
-import com.jerrypeng31.mvvmtest.EventViewModelFactory
-import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.R
 import com.jerrypeng31.taipeizoodemoapp.databinding.FragmentZooBinding
 import com.jerrypeng31.taipeizoodemoapp.keys.Keys
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.view.MainActivity
+import com.jerrypeng31.taipeizoodemoapp.mvvm.view.adapter.ZooItemAdapter
 import com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel.EventObserver
 import com.jerrypeng31.taipeizoodemoapp.mvvm.viewmodel.EventViewModel
-import com.jerrypeng31.taipeizoodemoapp.retrofit.RetrofitUtil
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ZooFragment : Fragment() {
     companion object{
         const val TAG = "ZooFragment"
@@ -30,9 +29,7 @@ class ZooFragment : Fragment() {
 
     var dataBinding: FragmentZooBinding? = null
 
-    private val eventViewModel: EventViewModel by activityViewModels{
-        EventViewModelFactory(Repository(RetrofitUtil.getApiService()))
-    }
+    private val eventViewModel by viewModels<EventViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

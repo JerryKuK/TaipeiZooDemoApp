@@ -6,8 +6,9 @@ import com.jerrypeng31.taipeizoodemoapp.retrofit.ApiService
 import com.jerrypeng31.taipeizoodemoapp.retrofit.RetrofitUtil
 import io.reactivex.Observable
 import io.reactivex.Observer
+import javax.inject.Inject
 
-class Repository(private val apiService: ApiService){
+class Repository @Inject constructor(private val apiService: ApiService){
     companion object{
         const val SCOPE = "resourceAquire"
     }

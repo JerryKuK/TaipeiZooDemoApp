@@ -6,6 +6,7 @@
 
     <!-- Glide 需要設置 android:usesCleartextTraffic="true"， 因為android 9.0默認不支持http。  -->
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -1,31 +1,29 @@
 package com.jerrypeng31.taipeizoodemoapp.retrofit
 
-import android.util.Log
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.io.IOException
-import java.security.SecureRandom
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+import javax.inject.Singleton
 
+@Module
+@InstallIn(SingletonComponent::class)
 class RetrofitUtil {
     companion object {
         const val API_URL = "https://data.taipei/"
         private var apiService: ApiService? = null
 
         fun getInstance() = RetrofitSingletonHolder.instance
+
+        @Singleton
+        @Provides
         fun getApiService(): ApiService {
             return apiService ?: getInstance().create(ApiService::class.java)
         }

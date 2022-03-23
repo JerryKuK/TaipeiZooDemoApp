@@ -7,13 +7,16 @@ import com.jerrypeng31.mvvmtest.Repository
 import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.Callable
+import javax.inject.Inject
 
-class EventViewModel(private val repository: Repository) : ViewModel(){
+@HiltViewModel
+class EventViewModel @Inject constructor(private val repository: Repository) : ViewModel(){
     val areaData : MutableLiveData<AreaApiModel?> = MutableLiveData()
     val plantData : MutableLiveData<PlantApiModel?> = MutableLiveData()
     val areaError : MutableLiveData<Throwable?> = MutableLiveData()
