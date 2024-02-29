@@ -16,10 +16,10 @@ class ZooItemAdapter(private val viewModel: EventViewModel) :
         return VH(binding)
     }
 
-    override fun getItemCount(): Int = getItemList()?.size ?: 0
+    override fun getItemCount(): Int = getItemList().size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val data = getItemList()?.get(position)
+        val data = getItemList()[position] ?: return
         holder.viewBinding.setVariable(BR.dataResult, data)
         holder.viewBinding.setVariable(BR.eventViewModel, viewModel)
         holder.viewBinding.executePendingBindings()
@@ -27,7 +27,7 @@ class ZooItemAdapter(private val viewModel: EventViewModel) :
 
     class VH(val viewBinding: AdapterItemZooBinding) : RecyclerView.ViewHolder(viewBinding.root)
 
-    fun getItemList(): List<AreaApiModel.Result.AreaDataResult>?{
-        return viewModel.areaData.value?.result?.results
+    fun getItemList(): List<AreaApiModel.Result.AreaDataResult?>{
+        return viewModel.areaData.value?.result?.results ?: listOf()
     }
 }

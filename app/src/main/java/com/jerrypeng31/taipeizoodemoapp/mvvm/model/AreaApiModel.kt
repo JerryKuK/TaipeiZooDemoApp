@@ -6,39 +6,39 @@ import java.io.Serializable
 
 data class AreaApiModel(
     @SerializedName("result")
-    val result: Result
+    val result: Result?
 ) {
     data class Result(
         @SerializedName("count")
-        val count: Int,
+        val count: Int?,
         @SerializedName("limit")
-        val limit: Int,
+        val limit: Int?,
         @SerializedName("offset")
-        val offset: Int,
+        val offset: Int?,
         @SerializedName("results")
-        val results: List<AreaDataResult>,
+        val results: List<AreaDataResult?>?,
         @SerializedName("sort")
-        val sort: String
+        val sort: String?
     ) {
         data class AreaDataResult(
-            @SerializedName("E_Category")
-            val eCategory: String,
-            @SerializedName("E_Geo")
-            val eGeo: String,
-            @SerializedName("E_Info")
-            val eInfo: String,
-            @SerializedName("E_Memo")
-            val eMemo: String,
-            @SerializedName("E_Name")
-            val eName: String,
-            @SerializedName("E_no")
-            val eNo: String,
-            @SerializedName("E_Pic_URL")
-            val ePicURL: String,
-            @SerializedName("E_URL")
-            val eURL: String,
+            @SerializedName("e_category")
+            val eCategory: String?,
+            @SerializedName("e_geo")
+            val eGeo: String?,
+            @SerializedName("e_info")
+            val eInfo: String?,
+            @SerializedName("e_memo")
+            val eMemo: String?,
+            @SerializedName("e_name")
+            val eName: String?,
+            @SerializedName("e_no")
+            val eNo: String?,
+            @SerializedName("e_pic_url")
+            val ePicURL: String?,
+            @SerializedName("e_url")
+            val eURL: String?,
             @SerializedName("_id")
-            val id: Int
+            val id: Int?
         ): Serializable
     }
 }

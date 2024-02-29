@@ -95,10 +95,10 @@ class AreaItemAdapter(private val viewModel: EventViewModel, private val areaDat
     fun getItemList(): List<PlantApiModel.Result.PlantDataResult>{
         val checkNoNameSameMap = mutableMapOf<String, PlantApiModel.Result.PlantDataResult>()
         val realList = viewModel.plantData.value?.result?.results
-        realList?.let {
-            for (item in it){
-                if(! checkNoNameSameMap.containsKey(item.FNameCh)){
-                    checkNoNameSameMap.put(item.FNameCh, item)
+        realList?.forEach { result ->
+            result?.FNameCh?.let { name ->
+                if(! checkNoNameSameMap.containsKey(name)){
+                    checkNoNameSameMap[name] = result
                 }
             }
         }

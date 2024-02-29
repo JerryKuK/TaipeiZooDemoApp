@@ -98,7 +98,7 @@ class AreaFragment : Fragment() {
         recyclerView?.adapter = adapter
 
         areaDataResult?.let {
-            eventViewModel.getPlantaData(it.eName)
+            eventViewModel.getPlantaData(it.eName ?: "")
         }
 
         eventViewModel.plantData.observe(viewLifecycleOwner, Observer {

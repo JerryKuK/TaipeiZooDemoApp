@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 @BindingAdapter("imgUrl")
-fun setPicture(imageView: ImageView, imgUrl: String) {
+fun setPicture(imageView: ImageView, imgUrl: String?) {
     Glide.with(imageView.getContext())
         .load(imgUrl)
         .placeholder(R.drawable.default_icon)

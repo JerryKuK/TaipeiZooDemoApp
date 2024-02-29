@@ -49,7 +49,11 @@ class PlantFragment : Fragment() {
 
     fun initToolBar(){
         if(activity is MainActivity && param is PlantApiModel.Result.PlantDataResult){
-            (activity as MainActivity).toolbar(R.drawable.back, (param as PlantApiModel.Result.PlantDataResult).FNameCh, false){
+            (activity as MainActivity).toolbar(
+                R.drawable.back,
+                (param as PlantApiModel.Result.PlantDataResult).FNameCh ?: "",
+                false
+            ) {
                 false
             }
         }
