@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import org.hamcrest.Matchers.equalTo
-import org.junit.*
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class RepositoryTest {
     @get:Rule

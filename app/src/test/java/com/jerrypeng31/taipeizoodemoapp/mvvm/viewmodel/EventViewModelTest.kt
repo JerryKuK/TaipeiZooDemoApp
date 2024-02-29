@@ -9,10 +9,12 @@ import com.jerrypeng31.taipeizoodemoapp.retrofit_utils.RxSchedulersOverrideRule
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.coroutines.CoroutineContext
 
 class EventViewModelTest {
     @get:Rule
@@ -22,6 +24,7 @@ class EventViewModelTest {
 
     @MockK
     lateinit var stubRepository: Repository
+    private val dispatchers: CoroutineContext = TestCoroutineDispatcher()
 
     @MockK
     lateinit var idling: Idling
@@ -39,7 +42,7 @@ class EventViewModelTest {
             areaApiModel
         }
 
-        val viewModel = EventViewModel(stubRepository)
+        val viewModel = EventViewModel(stubRepository, dispatchers)
         viewModel.getAreaData()
 
         Assert.assertEquals(areaApiModel.result?.count, viewModel.areaData.value?.result?.count)
@@ -54,7 +57,7 @@ class EventViewModelTest {
             throw Exception("NoAreaData")
         }
 
-        val viewModel = EventViewModel(stubRepository)
+        val viewModel = EventViewModel(stubRepository, dispatchers)
         viewModel.getAreaData()
 
         Assert.assertEquals("NoAreaData", viewModel.areaError.value?.message)
@@ -68,7 +71,7 @@ class EventViewModelTest {
             plantApiModel
         }
 
-        val viewModel = EventViewModel(stubRepository)
+        val viewModel = EventViewModel(stubRepository, dispatchers)
         viewModel.getPlantaData("")
 
         Assert.assertEquals(plantApiModel.result?.count, viewModel.plantData.value?.result?.count)
@@ -83,7 +86,7 @@ class EventViewModelTest {
             throw Exception("NoPlantData")
         }
 
-        val viewModel = EventViewModel(stubRepository)
+        val viewModel = EventViewModel(stubRepository, dispatchers)
         viewModel.getPlantaData("")
 
         Assert.assertEquals("NoPlantData", viewModel.plantError.value?.message)

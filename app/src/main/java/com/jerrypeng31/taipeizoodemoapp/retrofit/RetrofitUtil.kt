@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+import kotlin.coroutines.CoroutineContext
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,6 +27,12 @@ class RetrofitUtil {
         @Provides
         fun getApiService(): ApiService {
             return apiService ?: getInstance().create(ApiService::class.java)
+        }
+
+        @Singleton
+        @Provides
+        fun provideDispatchers(): CoroutineContext {
+            return Dispatchers.IO
         }
     }
 

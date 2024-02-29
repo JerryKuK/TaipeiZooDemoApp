@@ -9,7 +9,6 @@ import com.jerrypeng31.taipeizoodemoapp.idling.Idling
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.AreaApiModel
 import com.jerrypeng31.taipeizoodemoapp.mvvm.model.PlantApiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -17,9 +16,13 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 @HiltViewModel
-class EventViewModel @Inject constructor(private val repository: Repository) : ViewModel(){
+class EventViewModel @Inject constructor(
+    private val repository: Repository,
+    private val dispatchers: CoroutineContext
+) : ViewModel(){
     val areaData : MutableLiveData<AreaApiModel?> = MutableLiveData()
     val plantData : MutableLiveData<PlantApiModel?> = MutableLiveData()
     val areaError : MutableLiveData<Throwable?> = MutableLiveData()
@@ -38,7 +41,7 @@ class EventViewModel @Inject constructor(private val repository: Repository) : V
                 val data = repository.getAreaData()
                 emit(data)
             }
-                .flowOn(Dispatchers.IO)
+                .flowOn(dispatchers)
                 .catch {
                     areaError.value = it
                 }
@@ -60,7 +63,7 @@ class EventViewModel @Inject constructor(private val repository: Repository) : V
                 val data = repository.getPlantData(filter)
                 emit(data)
             }
-                .flowOn(Dispatchers.IO)
+                .flowOn(dispatchers)
                 .catch { plantError.value = it }
                 .collect {
                     //UI Test Used
